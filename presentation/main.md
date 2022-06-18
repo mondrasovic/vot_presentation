@@ -201,11 +201,11 @@ $D \left( \tilde{x}_a, \tilde{x}_n \right) < D \left( \tilde{x}_a, \tilde{x}_p \
 
 ---
 <!--
-_footer: '**[1]** - *Schroff, Florian, Dmitry Kalenichenko, and James Philbin.* "[Facenet: A unified embedding for face recognition and clustering.](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)" Proceedings of the IEEE conference on computer vision and pattern recognition. 2015.'
+_footer: '$\star$ - See **appendix** for more **mathematical details**.'
 -->
 
-# Online triplet mining strategies
-Let $P$ be the **number** of **different objects** (e.g., people, vehicles) and $K$ be the **number** of different images of a **concrete identity** (e.g., different views of the same vehicle)[[1](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)].
+# Online triplet mining strategies$^{\star}$
+Let $P$ be the **number** of **different objects** (e.g., people, vehicles) and $K$ be the **number** of different images of a **concrete identity** (e.g., different views of the same vehicle).
 
 ## Batch all
 
@@ -265,6 +265,7 @@ Three basic phases of **Visual Object Tracking** (**VOT**) [[1](https://arxiv.or
 ---
 <!--
 _footer: '**[1]** - *Shuai, Bing, et al.* "[Siammot: Siamese multi-object tracking.](https://arxiv.org/abs/2105.11595)" Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2021.
+
 **[2]** - *Ren, Shaoqing, et al.* "[Faster r-cnn: Towards real-time object detection with region proposal networks.](https://arxiv.org/abs/1506.01497)" Advances in neural information processing systems 28 (2015).'
 -->
 
@@ -336,28 +337,61 @@ _class: invert
 
 ---
 <!--
-header: *Part 3*: Appendix - Overview of Relevant **Vehicle Tracking Datasets**
+header: '*Part 3*: Appendix - Overview of Relevant **Vehicle Tracking Datasets**'
+_footer: '**[1]** - *Wen, Longyin, et al.* "[UA-DETRAC: A new benchmark and protocol for multi-object detection and tracking.](https://www.sciencedirect.com/science/article/pii/S1077314220300035?casa_token=77iDof3yBUoAAAAA:y4W5dlEYjkX_so6sMFOH2eF-eZeq5ZxK2vUEqbvstj_4R3GXXYr4UGh7bOSQWzeS4_C5yGaxTg)" Computer Vision and Image Understanding 193 (2020): 102907.'
 -->
+# UA-DETRAC Vehicle Tracking Dataset
+
+* This dataset is **available** only **upon request**[[1](https://www.sciencedirect.com/science/article/pii/S1077314220300035?casa_token=77iDof3yBUoAAAAA:y4W5dlEYjkX_so6sMFOH2eF-eZeq5ZxK2vUEqbvstj_4R3GXXYr4UGh7bOSQWzeS4_C5yGaxTg)].
+* $10$ hours of video captured in $24$ different places.
+* $25$ FPS, $960 \times 540$ pixels, more than $140\ 000$ frames.
+* $8\ 250$ manually annotated vehicles, $1,21$ million bounding boxes.
+
+![height:280](./images/uadetrac_tracking_01.png) ![height:280](./images/uadetrac_tracking_02.png)
+
+---
 
 # UA-DETRAC Vehicle Tracking Dataset
 
 ![](./images/uadetrac_samples.jpg)
 
 ---
-# UA-DETRAC Vehicle Tracking Dataset
-
-* $10$ hours of video captured in $24$ different places.
-* $25$ FPS, $960 \times 540$ pixels, more than $140\ 000$ frames.
-* $8\ 250$ manually annotated vehicles.
-* $1,21$ million bounding boxes.
-
-![height:300](./images/uadetrac_tracking_01.png) ![height:300](./images/uadetrac_tracking_02.png)
-
----
+<!--
+_footer: '**[1]** - *Liu, Xinchen, et al.* "[Provid: Progressive and multimodal vehicle reidentification for large-scale urban surveillance.](https://ieeexplore.ieee.org/abstract/document/8036238?casa_token=iIk6fqQhbykAAAAA:Ypehhy5mumMJrOcVcDur_MncD7xAFdLThK1Eak7DzSvzxERzye0S-u2KA20WtIBUOE4W1xS42EIr)" IEEE Transactions on Multimedia 20.3 (2017): 645-658.'
+-->
 # VeRi-776
 
-* Vehicle **ReID** in an **urban environment**.
+* Vehicle **ReID** in an **urban environment**[[1](https://ieeexplore.ieee.org/abstract/document/8036238?casa_token=iIk6fqQhbykAAAAA:Ypehhy5mumMJrOcVcDur_MncD7xAFdLThK1Eak7DzSvzxERzye0S-u2KA20WtIBUOE4W1xS42EIr)].
 * More than $50\ 000$ images.
 * $776$ vehicles captured by $20$ different cameras.
 
 ![](./images/veri776__overview.png)
+
+---
+<!--
+_header: ''
+_footer: ''
+_paginate: false
+_class: invert
+-->
+# *Part 4*: **Appendix** - Supplementary **Mathematics**
+
+---
+<!--
+header: '*Part 4*: Appendix - Supplementary **Mathematics**'
+_footer: '**[1]** - *Schroff, Florian, Dmitry Kalenichenko, and James Philbin.* "[Facenet: A unified embedding for face recognition and clustering.](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)" Proceedings of the IEEE conference on computer vision and pattern recognition. 2015.'
+-->
+
+# "Batch-all" online triplet mining strategy
+
+[[1](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)].
+
+
+---
+<!--
+_footer: '**[1]** - *Schroff, Florian, Dmitry Kalenichenko, and James Philbin.* "[Facenet: A unified embedding for face recognition and clustering.](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)" Proceedings of the IEEE conference on computer vision and pattern recognition. 2015.'
+-->
+
+# "Batch-hard" online triplet mining strategy
+
+[[1](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)].
