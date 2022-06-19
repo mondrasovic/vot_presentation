@@ -17,6 +17,8 @@ _class: invert
 ## ... with focus on **Siamese neural networks** 
 ## ... and **lessons learned** during my Ph.D. research
 
+*(Ph.D. thesis defense takes place on 23. 8. 2022)*
+
 ### ***Milan Ondrašovič***
 *milan.ondrasovic@gmail.com*
 ***University of Žilina**, Žilina, Slovakia*
@@ -107,7 +109,8 @@ $$\left\Vert \mathbf{u} - \mathbf{v} \right\Vert^2_2 = \sum_{i = 1}^{D} {\left( 
 
 # Contrastive loss function
 
-![height:400](./images/siamese_architecture.jpg)
+![bg right fit vertical](./images/siamese_architecture.jpg)
+![bg right](./images/mnist_contrastive_example.png)
 
 ---
 <!--
@@ -144,7 +147,9 @@ $$\mathcal{L}_{contr} =
 
 # Triplet loss function
 
-![height:500](./images/triplet_architecture.png)
+![bg right vertical fit](./images/triplet_architecture.png)
+
+![bg right fit](./images/triplet_loss_learning.png)
 
 ---
 <!--
@@ -205,7 +210,7 @@ _footer: '$\star$ - See **appendix** for more **mathematical details**.'
 -->
 
 # Online triplet mining strategies$^{\star}$
-Let $P$ be the **number** of **different objects** (e.g., people, vehicles) and $K$ be the **number** of different images of a **concrete identity** (e.g., different views of the same vehicle).
+Let $P$ be the **number** of **different objects** (e.g., people, vehicles) and $K$ be the **number** of **different instances** of a **concrete identity** (e.g., different views of the same vehicle).
 
 ## "Batch-all" strategy
 
@@ -216,19 +221,22 @@ Selects the **hardest positive** and **hardest negative** for each **anchor**, t
 
 ---
 <!--
+_footer: '**[1]** - *Levi, Elad, et al.* "[Rethinking preventing class-collapsing in metric learning with margin-based losses.](https://arxiv.org/abs/2006.05162)" Proceedings of the IEEE/CVF International Conference on Computer Vision. 2021.'
 _backgroundColor: #a8ddb5
 -->
 
-# Lesson learned: training triplet loss
+# Lesson learned: training margin-based loss functions
 
-## Facts
+## Facts and observations
 
-* Triplet loss is **notoriously difficult** to train.
+> **Margin-based** loss functions are **notoriously difficult** to **train** [[1](https://arxiv.org/abs/2006.05162)].
+* A **common problem** is **class collapsing** where the model **projects** all the inputs onto a **single embedding vector**, thereby the **loss value** is **equal** to the **margin**.
 
-## Remedies
+## Possible remedies
 
-* Properly "babysitting" the learning process is essential:
-  1. Apply **batch-all** mining first, then slowly progress towards **batch-hard**.
+* Properly "babysitting" the **training process** is **essential**.
+  1. Apply **batch-all** mining (**semi-hard**) first, then progress towards **batch-hard**.
+  2. Properly **adjusting** the **batch size** - using **bigger** **mini-batches** helps.
 
 ---
 <!--
@@ -277,32 +285,16 @@ _footer: '**[1]** - *Bertinetto, Luca, et al.* "[Fully-convolutional siamese net
 -->
 # Siamese tracking - fundamental components
 
-## Symmetry
-
-* Let $z$ and $x$ denote the **exemplar** and **search region**, respectively. 
-* **Siamese networks** apply **identical transformation** $\varphi \left( \cdot \right)$ to **both inputs** $z$ and $x$ and then **combine** the produced features using a function $g \left( \cdot \right)$, such that [[1](https://arxiv.org/abs/1606.09549)]
-
-$$f \left( z, x \right) =
-g \left( \varphi \left( z \right) , \varphi \left( x \right) \right).$$
-
 ## Fully-convolutional architecture
 
 * It provides a way to compute a **similarity score** for each **translated** sub-window of the **exemplar image** within a larger **search region**.
 
----
-<!--
-_footer: '**[1]** - *Bertinetto, Luca, et al.* "[Fully-convolutional siamese networks for object tracking.](https://arxiv.org/abs/1606.09549)" European conference on computer vision. Springer, Cham, 2016.'
--->
-# Siamese tracking - fundamental components
+## Cross-correlation operation (symmetry)
 
-## Cross-correlation operation
-
-* By exploiting the **embedding** function $\varphi \left( \cdot \right)$, the produced **feature maps** can be combined using a **cross-correlation** layer as [[1](https://arxiv.org/abs/1606.09549)]
+* Let $z$ and $x$ denote the **exemplar** and **search region**, respectively. 
+* Let $\varphi \left( \cdot \right)$ be the **embedding function**. The produced **feature maps** can be combined into a **2D response map** using a **cross-correlation** operation ($\star$) as [[1](https://arxiv.org/abs/1606.09549)]
 $$f \left( z, x \right) =
-\varphi \left( z \right) \star \varphi \left( z \right) + b \mathbf{1}.$$
-* The term $b \mathbf{1}$ represents a **bias** (offset) which has value $b \in \mathbb{R}$ in **every location**.
-* The **cross-correlation** is denoted by $\star$.
-* The **output** is a **2D score map** defined on a finite **grid** of positions $\mathcal{P} \subset {\mathbb{Z}}^2_{+}$.
+\varphi \left( z \right) \star \varphi \left( z \right).$$
 
 ---
 <!--
@@ -327,6 +319,8 @@ _footer: '**[1]** - *Ren, Shaoqing, et al.* "[Faster r-cnn: Towards real-time ob
 # Two-stage object detection
 
 * A well-known example of a **two-stage object detector** is **Faster R-CNN** [[1](https://arxiv.org/abs/1506.01497)].
+* The fundamental building block is the **Region Proposal Network** (**RPN**).
+  * Utilizes a **set** of defined **anchor boxes** with specific **aspect ratio** and **size**.
 
 ![](./images/fastercnn_diagram.png)
 
@@ -337,48 +331,99 @@ _footer: '**[1]** - *Ren, Shaoqing, et al.* "[Faster r-cnn: Towards real-time ob
 ![](./images/siammot_architecture.png)
 
 ---
-# Utilization of re-identification
+# Utilization of object re-identification
+
+---
+# Utilization of object re-identification - observations
+
+The tracker **correctly infers** the object’s **position** based on **minor** visible **cues**.
+
+![height:180](./images/pillar_occlusion.png)
+
+Due to a relatively **high confidence** in **tracker's predictions**, a sophisticated **occlusion detection** would be necessary to identify "**last non-occluded exemplar**".
+
+![height:150](./images/progressing_partial_occlusion.png)
+
 
 ---
 <!--
+_footer: '$\star$ - *The Zen of **Python**.*'
 _backgroundColor: #a8ddb5
 -->
 # Lesson learned: combining ReID with Siamese tracker
 
----
+> **Simple** is **better** than **complex**, **complex** is **better** than **complicated**$^{\star}$.
+* The **original tracker formulation** implicitly handles **basic forms** of  **occlusion** very well (surprisingly). The **ReID** overhead was **unjustified** on **multiple grounds**.
 
-# Utilization of feature embeddings
+> **Notably improving** a **rare case** whilst **minimally impairing** a **frequently occurring case** still yields **inferior results** in the **long run**.
+* The model managed to **correctly re-identify** a **fully-occluded** object. However, situations where an object **re-emerges** in a **distant image** part are **relatively rare**.
+
+---
+<!--
+_footer: '$\star$ - See **appendix** for more **architectural details**.'
+-->
+# Utilization of feature embeddings$^{\star}$
 
 Inclusion of an **embedding head** into the original **end-to-end** pipeline.
 
 ![](./images/siammot_feature_emb_training.jpg)
 
 ---
+# Utilization of feature embeddings - outcome
+
+![height:200](./images/uadetrac_partial_occlusion_multiple_cars.png)
+
+![height:200](./images/uadetrac_partial_occlusion_red_light.png)
+
+---
 <!--
+_footer: '**[1]** - *Zhang, Yifu, et al.* "[Fairmot: On the fairness of detection and re-identification in multiple object tracking.](https://arxiv.org/abs/2004.01888)" International Journal of Computer Vision 129.11 (2021): 3069-3087.'
 _backgroundColor: #a8ddb5
 -->
-# Lesson learned: combining emeddings with RPN
+# Lesson learned: combining embeddings with RPN
 
+* **Incompatibility** ("unfairness") between the **detection**, **tracking**, and **ReID** tasks [[1](https://arxiv.org/abs/2004.01888)].
+* The **ReID** task may become **overlooked** if the **embedding vectors** are
+produced **solely** from the **ROI**-pooled regions.
+  * The **detection** becomes **central** in terms of **influence** upon the **loss function**.
+* **One anchor** corresponds to **multiple identities**.
+  * The extracted **features** lack **accuracy** and **discriminative representativeness**.
+* **Multiple anchors** correspond to **one identity**.
+  * If high **IoU overlap**, the model treats **nearby anchors** as of the **same identity**.
+* **Feature conflict**, since tasks **prefer** features extracted at **different levels**.
+  * **Detection** utilizes **high-level features**, whereas **ReID** uses **low-level** features.
 ---
 <!--
 _footer: '**[1]** - *Dai, Jifeng, et al.* "[Deformable convolutional networks.](https://arxiv.org/abs/1703.06211)" Proceedings of the IEEE international conference on computer vision. 2017.
 
-**[2]** - *Zhu, Xizhou, et al.* "[Deformable convnets v2: More deformable, better results.](https://arxiv.org/abs/1811.11168)" Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2019.
-
+$\star$ - See **appendix** for more **mathematical details**.
 '
 -->
+# Deformable convolution$^{\star}$
 
-# Deformable convolution operation
+* Useful for various **dense prediction** tasks (object **detection**, **segmentation**, or **tracking**) [[1](https://arxiv.org/abs/1703.06211)].
 
-* Useful for **dense prediction** tasks (object **detection** or **segmentation**) [[1](https://arxiv.org/abs/1703.06211)].
-* A more advanced version is **modulated deformable convolution** [[2](https://arxiv.org/abs/1811.11168)].
-
-![bg right:50% fit](./images/dcn_standard_vs_deformable.png)
+![bg right:50% vertical fit](./images/dcn_standard_vs_deformable.png)
+![bg fit](./images/deformable_convolution.png)
 
 ---
+<!--
+_footer: '**[1]** - *Yu, Yuechen, et al.* "[Deformable siamese attention networks for visual object tracking.](https://arxiv.org/abs/2004.06711)" Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2020.'
+-->
 # Deformable Siamese attention
 
+* **Attention** enhances both **spatial** and **channel** feature **selection** .
+* **Discriminative power** is improved by **suppression** of the **semantic background**.
+* Two main **building blocks**:
+  * **Self**-attention.
+  * **Cross**-attention.
+
 ![bg right:50%](./images/dsa_attention_visualization.png)
+
+---
+# Deformable Siamese attention architecture
+
+![height:520](./images/deformable_siamese_attention.jpg)
 
 ---
 # Utilization of deformable Siamese attention
@@ -444,11 +489,11 @@ _footer: ''
 _paginate: false
 _class: invert
 -->
-# *Part 4*: **Appendix** - Supplementary **Mathematics**
+# *Part 4*: **Appendix** - **Supplementary** Information
 
 ---
 <!--
-header: '*Part 4*: Appendix - Supplementary **Mathematics**'
+header: '*Part 4*: Appendix - **Supplementary** Information'
 _footer: '**[1]** - *Schroff, Florian, Dmitry Kalenichenko, and James Philbin.* "[Facenet: A unified embedding for face recognition and clustering.](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)" Proceedings of the IEEE conference on computer vision and pattern recognition. 2015.'
 -->
 
@@ -465,6 +510,19 @@ _footer: '**[1]** - *Schroff, Florian, Dmitry Kalenichenko, and James Philbin.* 
 # "Batch-hard" online triplet mining strategy
 
 [[1](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)].
+
+---
+# Feature embeddings head - architecture
+
+| layer             | input tensor shape              | output tensor shape             | parameters no. |
+| ----------------- | --------------------------------| ------------------------------- | -------------- |
+| conv $3 \times 3$ | $\left[ B, 128, 15, 15 \right]$ | $\left[ B, 128, 13, 13 \right]$ | $147\ 456$     |
+| ReLU              | $\left[ B, 128, 13, 13 \right]$ | $\left[ B, 128, 13, 13 \right]$ | $0$            |
+| conv $3 \times 3$ | $\left[ B, 128, 13, 13 \right]$ | $\left[ B, 128, 11, 11 \right]$ | $294\ 912$     |
+| ReLU              | $\left[ B, 128, 11, 11 \right]$ | $\left[ B, 128, 11, 11 \right]$ | $0$            |
+| flatten           | $\left[ B, 128, 11, 11 \right]$ | $\left[ B, 30\ 976 \right]$     | $0$            |
+| linear            | $\left[ B, 30\ 976 \right]$     | $\left[ B, 1\ 024 \right]$      | $31\ 720\ 448$ |
+| $l_2$-normalize   | $\left[ B, 1\ 024 \right]$      | $\left[ B, 1\ 024 \right]$      | $0$            |
 
 ---
 
@@ -486,7 +544,7 @@ $$\mathbf{y} \left( \mathbf{p}_0 \right) =
 \cdot
 \mathbf{x} \left( \mathbf{p}_0 + \mathbf{p}_n \right).$$
 
-A **deformable convolution** **augments** the original **sampling grid** $\mathcal{R}$ with **additional offsets** $\left\{ \Delta \mathbf{p}_n \ | \ n = 1, \dots, |\mathcal{R}| \right\}$. The equation above is **reformulated** as [[1](https://arxiv.org/abs/1703.06211)]
+A **deformable convolution** [[1](https://arxiv.org/abs/1703.06211)] (see a more **advanced** version [[2](https://arxiv.org/abs/1811.11168)]) **augments** the **sampling grid** $\mathcal{R}$ with **additional offsets** $\left\{ \Delta \mathbf{p}_n \ | \ n = 1, \dots, |\mathcal{R}| \right\}$ as follows
 $$\mathbf{y} \left( \mathbf{p}_0 \right) =
 \sum_{\forall \mathbf{p}_n \in \mathcal{R}}
 \mathbf{w} \left( \mathbf{p}_n \right)
