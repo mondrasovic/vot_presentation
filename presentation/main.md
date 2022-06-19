@@ -109,6 +109,10 @@ $$\left\Vert \mathbf{u} - \mathbf{v} \right\Vert^2_2 = \sum_{i = 1}^{D} {\left( 
 
 # Contrastive loss function
 
+* This **mapping** should preserve **neighborhood relationships** between data points.
+* **Generalization** to new, **unseen** data is **desired**.
+* Excellent performance on **unsupervised learning** tasks.
+
 ![bg right fit vertical](./images/siamese_architecture.jpg)
 ![bg right](./images/mnist_contrastive_example.png)
 
@@ -122,8 +126,8 @@ _footer: '**[1]** - *Hadsell, Raia, Sumit Chopra, and Yann LeCun*. "[Dimensional
 * Consider a sample $\left( x_0, x_1, y \right)$, where $x_0$, $x_1$ represent **features**, and $y$ is the **label**.
 
 $$y = \begin{cases}
-  1, \quad \text{if } x_0 \text{ and } x_1 \text{belong to the same category},\\
-  0, \quad \text{otherwise}.
+  1 \quad \text{if } x_0 \text{ and } x_1 \text{belong to the same category},\\
+  0 \quad \text{otherwise}.
 \end{cases}$$
 
 * Let $\tilde{x}_0 = f_\theta \left( x_0 \right)$ and $\tilde{x}_1 = f_\theta \left( x_1 \right)$ be the **embedding vectors**.
@@ -144,8 +148,15 @@ $$\mathcal{L}_{contr} =
   \right)}^2.$$
 
 ---
-
+<!--
+_footer: '
+**[1]** - *Kuma, Ratnesh, et al.* "[Vehicle re-identification: an 
+efficient baseline using triplet embedding.](https://arxiv.org/abs/1901.01015)" 2019 International Joint Conference on Neural Networks (IJCNN). IEEE, 2019.'
+-->
 # Triplet loss function
+
+* Unlike the **contrastive loss**, this approach provides an **additional context** to better delineate the **latent space** during training.
+* Triplet loss **outperforms** the **contrastive loss** in general [[1](https://arxiv.org/abs/1901.01015)].
 
 ![bg right vertical fit](./images/triplet_architecture.png)
 
@@ -270,6 +281,7 @@ Three basic phases of **Visual Object Tracking** (**VOT**) [[1](https://arxiv.or
 * **Variations** in **lightning** conditions.
 * Object **occlusion** of varying intensity.
 * Presence of **distractors** (similar-looking objects), a.k.a, **similar interference**.
+> My **research** was aimed at handling **object occlusion** as part of **VOT**.
 
 ![bg right:45% vertical fit](./images/object_occlusion_01.png)
 ![bg fit](./images/object_occlusion_02.jpg)
@@ -278,6 +290,16 @@ Three basic phases of **Visual Object Tracking** (**VOT**) [[1](https://arxiv.or
 # Siamese single object tracking - general pipeline
 
 ![](./images/fully_cnn_siam_tracking_architecture.png)
+
+---
+<!--
+_footer: '**[1]** - *Ondrašovič, Milan, and Peter Tarábek.* "[Siamese visual object tracking: A survey.](https://ieeexplore.ieee.org/document/9503425)" IEEE Access 9 (2021): 110149-110172.'
+-->
+# Survey on Siamese VOT (*shameless advertisement*)
+
+* An **up-to-date**, **comprehensive**, yet **specialized survey** [[1](https://ieeexplore.ieee.org/document/9503425)] aimed at the **constituents** of **Siamese trackers** and **problems** these **architectures** face.
+
+![](./images/siamese_tracking_survey.png)
 
 ---
 <!--
@@ -308,7 +330,7 @@ _footer: '**[1]** - *Shuai, Bing, et al.* "[Siammot: Siamese multi-object tracki
 * **Siamese Multi-Object Tracker** (**SiamMOT**) [[1](https://arxiv.org/abs/2105.11595)].
 * Back in the end of $2021$ it was the **state-of-the-art** approach.
 * Ability to track **multiple objects simultaneously**.
-* **Object detection** by use of **Faster R-CNN** [[2](https://arxiv.org/abs/1506.01497)].
+* **Object detection** by use of a fully-integrated (end-to-end) **Faster R-CNN** [[2](https://arxiv.org/abs/1506.01497)].
 * **Siamese tracking** is exploited for **motion modeling**.
 * **Reasoning** on top of both **detector** as well as **tracker predictions**.
 
@@ -325,13 +347,39 @@ _footer: '**[1]** - *Ren, Shaoqing, et al.* "[Faster r-cnn: Towards real-time ob
 ![](./images/fastercnn_diagram.png)
 
 ---
-
 # SiamMOT architecture
 
 ![](./images/siammot_architecture.png)
 
 ---
+<!--
+_footer: '**[1]** - *Shuai, Bing, et al.* "[Siammot: Siamese multi-object tracking.](https://arxiv.org/abs/2105.11595)" Proceedings of the IEEE/CVF conference on CVPR. 2021.
+
+**[2]** - *Ren, Shaoqing, et al.* "[Faster r-cnn: Towards real-time object detection with region proposal networks.](https://arxiv.org/abs/1506.01497)" Advances in NIPS 28 (2015).
+
+**[3]** - *Danelljan, Martin, et al.* "[Atom: Accurate tracking by overlap maximization.](https://arxiv.org/abs/1811.07628)" Proceedings of the IEEE/CVF Conference on CVPR. 2019.
+
+**[4]** - *Tian, Zhi, et al.* "[FCOS: Fully convolutional one-stage object detection.](https://arxiv.org/abs/1904.01355)" Proceedings of the IEEE/CVF international conference on computer vision. 2019.
+
+**[5]** - *Lin, Tsung-Yi, et al.* "[Focal loss for dense object detection.](https://arxiv.org/abs/1708.02002)" Proceedings of the IEEE international conference on computer vision. 2017.
+'
+-->
+# SiamMOT - loss function
+
+* The **loss** function is **complex** (see the paper [[1](https://arxiv.org/abs/2105.11595)]) and consists of **multiple parts**.
+$$\mathcal{L} = l_{rpn} + l_{detection} + l_{motion}$$
+* The $l_{rpn}$ and $l_{detection}$ are **standard RPN** and **detection-subnetwork** [[2](https://arxiv.org/abs/1504.08083)] losses, respectively. The $l_{motion}$ is used to train the **Siamese tracker**.
+* The **regression task** is formulated as **IoU loss** [[3](https://arxiv.org/abs/1811.07628)] and modulated by *centerness* [[4](https://arxiv.org/abs/1904.01355)]. The **class-imbalance** problem is addressed using **focal loss** for classification [[5](https://arxiv.org/abs/1708.02002)].
+
+---
+<!--
+_footer: '**[1]** - *Luo, Hao, et al.* "[Bag of tricks and a strong baseline for deep person re-identification.](https://arxiv.org/abs/1903.07071)" Proceedings of the IEEE/CVF conference on computer vision and pattern recognition workshops. 2019.'
+-->
 # Utilization of object re-identification
+
+An **external**, independently trained **ReID** model [[1](https://arxiv.org/abs/1903.07071)] was utilized as part of the **inference phase** (**not part** of the **end-to-end** pipeline).
+
+![height:400](./images/siammot_architecture_with_ReID.jpg)
 
 ---
 # Utilization of object re-identification - observations
@@ -369,7 +417,29 @@ Inclusion of an **embedding head** into the original **end-to-end** pipeline.
 ![](./images/siammot_feature_emb_training.jpg)
 
 ---
-# Utilization of feature embeddings - outcome
+<!--
+_footer: '**[1]** - *Hosang, Jan, Rodrigo Benenson, and Bernt Schiele.* "[Learning non-maximum suppression.](https://arxiv.org/abs/1705.02950)" Proceedings of the IEEE conference on CVPR. 2017.
+
+**[2]** - *Salscheider, Niels Ole.* "[Featurenms: Non-maximum suppression by learning feature embeddings.](https://arxiv.org/abs/2002.07662)" 2020 25th ICPR. IEEE, 2021.
+'
+-->
+# Utilization of feature embeddings - highlights
+
+## Loss function modification
+
+**Triplet loss** with **semi-hard** negative **mining** was incorporated into the **original loss** as
+$$\mathcal{L} = l_{rpn} + l_{detection} + l_{motion} + l_{embeddings}.$$
+
+## Feature-NMS algorithm
+
+* An **extended** version of **Non-Maximum Suppression** (**NMS**) [[1](https://arxiv.org/abs/1705.02950)] algorithm dubbed as **Feature-NMS** [[2](https://arxiv.org/abs/2002.07662)] was adopted **during inference**.
+* Three **thresholds**: **minimum** and **maximum IoU** score, **minimum similarity** score.
+
+---
+
+# Utilization of feature embeddings - observations
+
+* The model often received **amiguous** signal about **object identity**.
 
 ![height:200](./images/uadetrac_partial_occlusion_multiple_cars.png)
 
@@ -401,7 +471,9 @@ $\star$ - See **appendix** for more **mathematical details**.
 -->
 # Deformable convolution$^{\star}$
 
-* Useful for various **dense prediction** tasks (object **detection**, **segmentation**, or **tracking**) [[1](https://arxiv.org/abs/1703.06211)].
+* Useful for various **dense prediction** tasks (e.g., object **detection**, **segmentation**) [[1](https://arxiv.org/abs/1703.06211)].
+* The aim is to **adaptively learn** the **offsets** for given features.
+![](./images/dcnn_different_strides.png)
 
 ![bg right:50% vertical fit](./images/dcn_standard_vs_deformable.png)
 ![bg fit](./images/deformable_convolution.png)
@@ -431,7 +503,16 @@ _footer: '**[1]** - *Yu, Yuechen, et al.* "[Deformable siamese attention network
 ![](./images/siammot_attention_training.jpg)
 
 ---
+# SiamMOT and attention - results
 
+
+---
+<!--
+_backgroundColor: #a8ddb5
+-->
+# Lesson learned: exploiting attention
+
+---
 # Conclusion
 
 ---
@@ -509,7 +590,26 @@ _footer: '**[1]** - *Schroff, Florian, Dmitry Kalenichenko, and James Philbin.* 
 
 # "Batch-hard" online triplet mining strategy
 
-[[1](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)].
+For each **anchor**, it selects the **hardest positive** and the **hardest negative** sample [[1](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)].
+
+$$\mathcal{L}_{batchhard} =
+\sum_{i = 1}^{P}
+\sum_{a = 1}^{K}
+\left[
+  \alpha +
+  \underset{p = 1, \dots, K}{max}
+  \left\{
+    D \left( \tilde{x}^i_a, \tilde{x}^i_p \right)
+  \right\}
+  -
+  \underset{j = 1, \dots, P \ | \ n = 1, \dots, K \ | \ j \neq i}{max}
+  \left\{
+    D \left( \tilde{x}^i_a, \tilde{x}^j_n \right)
+  \right\}
+
+\right]_+
+$$
+
 
 ---
 # Feature embeddings head - architecture
