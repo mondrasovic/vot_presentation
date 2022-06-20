@@ -5,8 +5,8 @@ theme: base
 size: 16:9
 title: Visual Object Tracking + Lessons Learned
 footer: '***Siamese-based Visual Object Tracking***'
----
 
+---
 <!--
 _header: ''
 _footer: ''
@@ -36,16 +36,16 @@ _footer: ''
 _paginate: false
 _class: invert
 -->
-
 # *Part 1*: **Similarity learning** and **Siamese networks**
+
+## ... the **necessary** theoretical **background**.
 
 ---
 <!--
 header: '*Part 1*: Introduction to **Similarity learning** and **Siamese neural networks**'
 _footer: '**[1]** - *Bromley, Jane, et al.* "[Signature verification using a 
-Siamese time delay neural network.](https://proceedings.neurips.cc/paper/1993/hash/288cc0ff022877bd3df94bc9360b9c5d-Abstract.html)" Advances in neural information processing systems (1993).'
+Siamese time delay neural network.](https://proceedings.neurips.cc/paper/1993/hash/288cc0ff022877bd3df94bc9360b9c5d-Abstract.html)" Advances in NIPS (1993).'
 -->
-
 # Similarity learning
 
 * **Similarity learning** started as **signature verification** [[1](https://proceedings.neurips.cc/paper/1993/hash/288cc0ff022877bd3df94bc9360b9c5d-Abstract.html)].
@@ -56,7 +56,7 @@ Siamese time delay neural network.](https://proceedings.neurips.cc/paper/1993/ha
 
 ---
 <!--
-_footer: '**[1]** - *Zagoruyko, Sergey, and Nikos Komodakis.* "[Deep compare: A study on using convolutional neural networks to compare image patches.](https://www.sciencedirect.com/science/article/pii/S1077314217301716?casa_token=vC_LQ_Cqk0gAAAAA:gocpeGZRSaJH7HTFVdyN-GVjAPJo46R4ZCcYANYlhO4j0yyofFHcSnHuzTTJJRj8axmECChxwQ)" Computer Vision and Image Understanding 164 (2017): 38-55.
+_footer: '**[1]** - *Zagoruyko, Sergey, and Nikos Komodakis.* "[Deep compare: A study on using convolutional neural networks to compare image patches.](https://www.sciencedirect.com/science/article/pii/S1077314217301716?casa_token=vC_LQ_Cqk0gAAAAA:gocpeGZRSaJH7HTFVdyN-GVjAPJo46R4ZCcYANYlhO4j0yyofFHcSnHuzTTJJRj8axmECChxwQ)" CV and Image Understanding 164 (2017): 38-55.
 '
 -->
 # Siamese networks
@@ -84,13 +84,12 @@ efficient baseline using triplet embedding.](https://arxiv.org/abs/1901.01015)" 
 * A common use-case is to **estimate** a **degree** of **similarity** between **two images**.
 * Domain of object **Re-identification** (**ReID**).
   * E.g., vehicle ReID [[1](https://arxiv.org/abs/1901.01015)], person ReID [[2](https://www.sciencedirect.com/science/article/pii/S1047320321002765)].
-* Domain of **Siamese object tracking** [[3](https://arxiv.org/abs/1606.09549)].
+* Domain of **Siamese tracking** [[3](https://arxiv.org/abs/1606.09549)].
 
 
 ![bg right:39% fit](./images/similarity_score_computation.jpg)
 
 ---
-
 # Computing embedding vector similarity
 
 Let $\mathbf{u}, \mathbf{v} \in \mathbb{R}^D$ be two arbitrary $D$-dimensional **vectors**.
@@ -106,7 +105,6 @@ It's **squared form** is **proportional** to **cosine similarity** if both vecto
 $$\left\Vert \mathbf{u} - \mathbf{v} \right\Vert^2_2 = \sum_{i = 1}^{D} {\left( \mathbf{u}_i - \mathbf{v}_i \right)}^2 = 2 - 2 \cos \angle \left( \mathbf{u}, \mathbf{v} \right)$$ 
 
 ---
-
 # Contrastive loss function
 
 * This **mapping** should preserve **neighborhood relationships** between data points.
@@ -118,7 +116,7 @@ $$\left\Vert \mathbf{u} - \mathbf{v} \right\Vert^2_2 = \sum_{i = 1}^{D} {\left( 
 
 ---
 <!--
-_footer: '**[1]** - *Hadsell, Raia, Sumit Chopra, and Yann LeCun*. "[Dimensionality reduction by learning an invariant mapping.](https://ieeexplore.ieee.org/abstract/document/1640964?casa_token=s5-7Pr7LQAUAAAAA:MHfP_GruBRcXb37YixRLuvY4KkDGzZnVksgvBJBlHXsl2gtOOxqYkyHPl4lSuV4b9Iyjb6n2Ec2n)" 2006 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR-06). Vol. 2. IEEE, 2006.' 
+_footer: '**[1]** - *Hadsell, Raia, Sumit Chopra, and Yann LeCun*. "[Dimensionality reduction by learning an invariant mapping.](https://ieeexplore.ieee.org/abstract/document/1640964?casa_token=s5-7Pr7LQAUAAAAA:MHfP_GruBRcXb37YixRLuvY4KkDGzZnVksgvBJBlHXsl2gtOOxqYkyHPl4lSuV4b9Iyjb6n2Ec2n)" 2006 IEEE Computer Society Conference on CVPR (CVPR-06). Vol. 2. IEEE, 2006.' 
 -->
 
 # Contrastive loss function
@@ -164,7 +162,7 @@ efficient baseline using triplet embedding.](https://arxiv.org/abs/1901.01015)" 
 
 ---
 <!--
-_footer: '**[1]** - *Schroff, Florian, Dmitry Kalenichenko, and James Philbin.* "[Facenet: A unified embedding for face recognition and clustering.](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)" Proceedings of the IEEE conference on computer vision and pattern recognition. 2015.'
+_footer: '**[1]** - *Schroff, Florian, Dmitry Kalenichenko, and James Philbin.* "[Facenet: A unified embedding for face recognition and clustering.](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)" IEEE CVPR 2015.'
 -->
 
 # Triplet loss function
@@ -187,7 +185,6 @@ $$\mathcal{L}_{triplet} =
 <!--
 _footer: '**[1]** - *Wu, Chao-Yuan, et al.* "[Sampling matters in deep embedding learning.](https://openaccess.thecvf.com/content_iccv_2017/html/Wu_Sampling_Matters_in_ICCV_2017_paper.html)" Proceedings of the IEEE international conference on computer vision. 2017.'
 -->
-
 # Embedding training - online triplet mining
 
 * **Superior** to **offline** approaches.
@@ -219,7 +216,6 @@ $D \left( \tilde{x}_a, \tilde{x}_n \right) < D \left( \tilde{x}_a, \tilde{x}_p \
 <!--
 _footer: '$\star$ - See **appendix** for more **mathematical details**.'
 -->
-
 # Online triplet mining strategies$^{\star}$
 Let $P$ be the **number** of **different objects** (e.g., people, vehicles) and $K$ be the **number** of **different instances** of a **concrete identity** (e.g., different views of the same vehicle).
 
@@ -235,7 +231,6 @@ Selects the **hardest positive** and **hardest negative** for each **anchor**, t
 _footer: '**[1]** - *Levi, Elad, et al.* "[Rethinking preventing class-collapsing in metric learning with margin-based losses.](https://arxiv.org/abs/2006.05162)" Proceedings of the IEEE/CVF International Conference on Computer Vision. 2021.'
 _backgroundColor: #a8ddb5
 -->
-
 # Lesson learned: training margin-based loss functions
 
 ## Facts and observations
@@ -256,9 +251,9 @@ _footer: ''
 _paginate: false
 _class: invert
 -->
+# *Part 2*: Fundamentals of **Siamese Tracking**
 
-# *Part 2*: Siamese-based **Visual Object Tracking**
-
+## ... a **specific** as well as **modern paradigm** of **object tracking**.
 ---
 <!--
 header: '*Part 2:* Fundamentals of **Siamese-based Visual Object Tracking**'
@@ -320,15 +315,16 @@ $$f \left( z, x \right) =
 
 ---
 <!--
-_footer: '**[1]** - *Shuai, Bing, et al.* "[Siammot: Siamese multi-object tracking.](https://arxiv.org/abs/2105.11595)" Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2021.
+_footer: '**[1]** - *Shuai, Bing, et al.* "[Siammot: Siamese multi-object tracking.](https://arxiv.org/abs/2105.11595)" Proceedings of the IEEE/CVF conference on CVPR. 2021.
 
-**[2]** - *Ren, Shaoqing, et al.* "[Faster r-cnn: Towards real-time object detection with region proposal networks.](https://arxiv.org/abs/1506.01497)" Advances in neural information processing systems 28 (2015).'
+**[2]** - *Ren, Shaoqing, et al.* "[Faster r-cnn: Towards real-time object detection with region proposal networks.](https://arxiv.org/abs/1506.01497)" Advances in NIPS (2015).'
 -->
 
 # Siamese multiple-object tracking
 
 * **Siamese Multi-Object Tracker** (**SiamMOT**) [[1](https://arxiv.org/abs/2105.11595)].
 * Back in the end of $2021$ it was the **state-of-the-art** approach.
+* **Base architecture** for the **tracking**-related **experiments** of **my research**.
 * Ability to track **multiple objects simultaneously**.
 * **Object detection** by use of a fully-integrated (end-to-end) **Faster R-CNN** [[2](https://arxiv.org/abs/1506.01497)].
 * **Siamese tracking** is exploited for **motion modeling**.
@@ -336,7 +332,7 @@ _footer: '**[1]** - *Shuai, Bing, et al.* "[Siammot: Siamese multi-object tracki
 
 ---
 <!--
-_footer: '**[1]** - *Ren, Shaoqing, et al.* "[Faster r-cnn: Towards real-time object detection with region proposal networks.](https://arxiv.org/abs/1506.01497)" Advances in neural information processing systems 28 (2015).'
+_footer: '**[1]** - *Ren, Shaoqing, et al.* "[Faster r-cnn: Towards real-time object detection with region proposal networks.](https://arxiv.org/abs/1506.01497)" Advances in NIPS (2015).'
 -->
 # Two-stage object detection
 
@@ -369,17 +365,33 @@ _footer: '**[1]** - *Shuai, Bing, et al.* "[Siammot: Siamese multi-object tracki
 * The **loss** function is **complex** (see the paper [[1](https://arxiv.org/abs/2105.11595)]) and consists of **multiple parts**.
 $$\mathcal{L} = l_{rpn} + l_{detection} + l_{motion}$$
 * The $l_{rpn}$ and $l_{detection}$ are **standard RPN** and **detection-subnetwork** [[2](https://arxiv.org/abs/1504.08083)] losses, respectively. The $l_{motion}$ is used to train the **Siamese tracker**.
-* The **regression task** is formulated as **IoU loss** [[3](https://arxiv.org/abs/1811.07628)] and modulated by *centerness* [[4](https://arxiv.org/abs/1904.01355)]. The **class-imbalance** problem is addressed using **focal loss** for classification [[5](https://arxiv.org/abs/1708.02002)].
+* The **regression task** is formulated as **IoU loss** [[3](https://arxiv.org/abs/1811.07628)] and modulated by ***centerness*** [[4](https://arxiv.org/abs/1904.01355)]. The **class-imbalance** problem is addressed using **focal loss** for classification [[5](https://arxiv.org/abs/1708.02002)].
 
 ---
 <!--
-_footer: '**[1]** - *Luo, Hao, et al.* "[Bag of tricks and a strong baseline for deep person re-identification.](https://arxiv.org/abs/1903.07071)" Proceedings of the IEEE/CVF conference on computer vision and pattern recognition workshops. 2019.'
+_header: ''
+_footer: ''
+_paginate: false
+_class: invert
+-->
+# *Part 3*: **Experiments** with the chosen **Siamese tracker**
+
+## ... with the target of **traffic analysis**, concretely **vehicle tracking**.
+---
+<!--
+header: '*Part 3:* Key takeaways from **experiments** with **Siamese** multi-object **tracking**'
+_footer: '**[1]** - *Luo, Hao, et al.* "[Bag of tricks and a strong baseline for deep person re-identification.](https://arxiv.org/abs/1903.07071)" Proceedings of the IEEE/CVF conference on CVPR workshops. 2019.'
 -->
 # Utilization of object re-identification
 
 An **external**, independently trained **ReID** model [[1](https://arxiv.org/abs/1903.07071)] was utilized as part of the **inference phase** (**not part** of the **end-to-end** pipeline).
 
 ![height:400](./images/siammot_architecture_with_ReID.jpg)
+
+---
+# Utilization of object re-identification - concept
+
+![](./images/tracking_reid_state_diagram.png)
 
 ---
 # Utilization of object re-identification - observations
@@ -400,6 +412,7 @@ _backgroundColor: #a8ddb5
 -->
 # Lesson learned: combining ReID with Siamese tracker
 
+* This experiment led to **inferior results**.
 > **Simple** is **better** than **complex**, **complex** is **better** than **complicated**$^{\star}$.
 * The **original tracker formulation** implicitly handles **basic forms** of  **occlusion** very well (surprisingly). The **ReID** overhead was **unjustified** on **multiple grounds**.
 
@@ -412,13 +425,14 @@ _footer: '$\star$ - See **appendix** for more **architectural details**.'
 -->
 # Utilization of feature embeddings$^{\star}$
 
-Inclusion of an **embedding head** into the original **end-to-end** pipeline.
+* Inclusion of an **embedding head** into the original **end-to-end** pipeline.
+* The **objective** was to **train** the model to extract **ROI-aligned** features **suitable** for **object detection**, **tracking** and **re-identification** (embeddings) **simultaneously**.
 
 ![](./images/siammot_feature_emb_training.jpg)
 
 ---
 <!--
-_footer: '**[1]** - *Hosang, Jan, Rodrigo Benenson, and Bernt Schiele.* "[Learning non-maximum suppression.](https://arxiv.org/abs/1705.02950)" Proceedings of the IEEE conference on CVPR. 2017.
+_footer: '**[1]** - *Hosang, Jan, Rodrigo Benenson, and Bernt Schiele.* "[Learning non-maximum suppression.](https://arxiv.org/abs/1705.02950)" IEEE CVPR 2017.
 
 **[2]** - *Salscheider, Niels Ole.* "[Featurenms: Non-maximum suppression by learning feature embeddings.](https://arxiv.org/abs/2002.07662)" 2020 25th ICPR. IEEE, 2021.
 '
@@ -439,15 +453,14 @@ $$\mathcal{L} = l_{rpn} + l_{detection} + l_{motion} + l_{embeddings}.$$
 
 # Utilization of feature embeddings - observations
 
+* This experiment also led to **inferior results**.
 * The model often received **amiguous** signal about **object identity**.
 
-![height:200](./images/uadetrac_partial_occlusion_multiple_cars.png)
-
-![height:200](./images/uadetrac_partial_occlusion_red_light.png)
+![height:300](./images/uadetrac_partial_occlusion_multiple_cars.png)
 
 ---
 <!--
-_footer: '**[1]** - *Zhang, Yifu, et al.* "[Fairmot: On the fairness of detection and re-identification in multiple object tracking.](https://arxiv.org/abs/2004.01888)" International Journal of Computer Vision 129.11 (2021): 3069-3087.'
+_footer: '**[1]** - *Zhang, Yifu, et al.* "[Fairmot: On the fairness of detection and re-identification in multiple object tracking.](https://arxiv.org/abs/2004.01888)" International Journal of CV (2021).'
 _backgroundColor: #a8ddb5
 -->
 # Lesson learned: combining embeddings with RPN
@@ -462,6 +475,35 @@ produced **solely** from the **ROI**-pooled regions.
   * If high **IoU overlap**, the model treats **nearby anchors** as of the **same identity**.
 * **Feature conflict**, since tasks **prefer** features extracted at **different levels**.
   * **Detection** utilizes **high-level features**, whereas **ReID** uses **low-level** features.
+* **Point**-based approaches (e.g., **CenterTrack**, **FairMOT**) address these obstacles [[1](https://arxiv.org/abs/2004.01888)].
+---
+<!--
+_footer: '**[1]** - *Chen, Bao Xin, and John K. Tsotsos.* "[Fast visual object tracking with rotated bounding boxes.](https://arxiv.org/abs/1907.03892)" arXiv preprint arXiv:1907.03892 (2019).
+
+**[2]** - *Vaswani, Ashish, et al.* "[Attention is all you need.](https://arxiv.org/abs/1706.03762)" Advances in neural information processing systems 30 (2017).
+'
+-->
+# Motivation for exploiting attention mechanism
+
+* **Axis-aligned bounding boxes** do **not fit** properly when viewed **under angle**. 
+  * **Rotated bounding-boxes** are **useful** [[1](https://arxiv.org/abs/1907.03892)], however, there is **lack of datasets**.
+* The **objective** was to better **discriminate** the object **features** using ***attention*** [[2](https://arxiv.org/abs/1706.03762)].
+![height:300](./images/uadetrac_partial_occlusion_red_light.png)
+
+---
+<!--
+_footer: '**[1]** - *Yu, Yuechen, et al.* "[Deformable siamese attention networks for visual object tracking.](https://arxiv.org/abs/2004.06711)" Proceedings of the IEEE/CVF conference on CVPR. 2020.'
+-->
+# Deformable Siamese attention
+
+* **Attention** enhances both **spatial** and **channel** feature **selection** .
+* **Discriminative power** is improved by **suppression** of the **semantic background**.
+* Two main **building blocks**:
+  * **Self**-attention.
+  * **Cross**-attention.
+
+![bg right:50%](./images/dsa_attention_visualization.png)
+
 ---
 <!--
 _footer: '**[1]** - *Dai, Jifeng, et al.* "[Deformable convolutional networks.](https://arxiv.org/abs/1703.06211)" Proceedings of the IEEE international conference on computer vision. 2017.
@@ -479,20 +521,6 @@ $\star$ - See **appendix** for more **mathematical details**.
 ![bg fit](./images/deformable_convolution.png)
 
 ---
-<!--
-_footer: '**[1]** - *Yu, Yuechen, et al.* "[Deformable siamese attention networks for visual object tracking.](https://arxiv.org/abs/2004.06711)" Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2020.'
--->
-# Deformable Siamese attention
-
-* **Attention** enhances both **spatial** and **channel** feature **selection** .
-* **Discriminative power** is improved by **suppression** of the **semantic background**.
-* Two main **building blocks**:
-  * **Self**-attention.
-  * **Cross**-attention.
-
-![bg right:50%](./images/dsa_attention_visualization.png)
-
----
 # Deformable Siamese attention architecture
 
 ![height:520](./images/deformable_siamese_attention.jpg)
@@ -503,17 +531,48 @@ _footer: '**[1]** - *Yu, Yuechen, et al.* "[Deformable siamese attention network
 ![](./images/siammot_attention_training.jpg)
 
 ---
-# SiamMOT and attention - results
+# SiamMOT and attention - results - MOTA vs. MOTP
 
+![height:525](./images/tracker_cmp_MOTA_MOTP.png)
+
+---
+# SiamMOT and attention - results - precision vs. recall
+
+![height:525](./images/tracker_cmp_rec_prec.png)
 
 ---
 <!--
+_footer: '**[1]** - *Ondrašovič, Milan, and Peter Tarábek.* "[Siamese visual object tracking: A survey.](https://ieeexplore.ieee.org/document/9503425)" IEEE Access 9 (2021): 110149-110172.
+
+**[2]** - *Bernardin, Keni, and Rainer Stiefelhagen.* "[Evaluating multiple object tracking performance: the clear mot metrics.](https://jivp-eurasipjournals.springeropen.com/articles/10.1155/2008/246309)" EURASIP Journal on Image and Video Processing 2008 (2008): 1-10.
+'
 _backgroundColor: #a8ddb5
 -->
 # Lesson learned: exploiting attention
 
+* The **attention** has been shown on **numerous occasions** to **improve tracking** [[1](https://ieeexplore.ieee.org/document/9503425)].
+> It is of **paramount importance** to properly **assess** the **cost-benefit trade-off**.
+* Despite the **improvement** as indicated by the **established metrics** [[2](https://jivp-eurasipjournals.springeropen.com/articles/10.1155/2008/246309)], the **GPU VRAM** demands are **notably higher** during **training** (**inference** is **not** so **affected**).
+> If **more variables change**, make sure you **really compare** what you **think** you do.
+* Using $2 \times$ *Nvidia GeForce **RTX 2080Ti*** *GPUs* did **not match** the original model **requirements** to train with **identical** settings ($8 \times$ *Nvidia **Tesla V100***).
+  * **Multiple GPUs** as well as **gradient accumulation** were extensively **utilized**.
+
+
 ---
-# Conclusion
+<!--
+_footer: '**[1]** - *Zhang, Yifu, et al.* "[Fairmot: On the fairness of detection and re-identification in multiple object tracking.](https://arxiv.org/abs/2004.01888)" International Journal of CV (2021).
+
+**[2]** - *Vaswani, Ashish, et al.* "[Attention is all you need.](https://arxiv.org/abs/1706.03762)" Advances in neural information processing systems 30 (2017).
+'
+-->
+# Conclusion - key takeaways
+
+* **Siamese tracking** has reaped an upsurge in **research interest** recently (since $2016$).
+  * The **speed-to-accuracy** ratio is arguably among **the best**.
+* When combining **embeddings** with **tracking**, the architecture must be **appropriate**.
+  * **RPN**-based (**anchor**-based, in general) trackers are **not suitable** for **simultaneous** vector **embedding** (latent space) formation.
+  * **Point**-based approaches such as **FairMOT** [[1](https://arxiv.org/abs/2004.01888)] are a **promising direction**.
+* **Attention mechanism** [[2](https://arxiv.org/abs/1706.03762) is **beneficial** when additional **context** might help.
 
 ---
 <!--
@@ -522,13 +581,14 @@ _footer: ''
 _paginate: false
 _class: invert
 -->
+# *Part 4*: **Appendix** - Relevant **Vehicle Tracking Datasets**
 
-# *Part 3*: **Appendix** - Relevant **Vehicle Tracking Datasets**
+## ... a few **important datasets** that served the **experiments**.
 
 ---
 <!--
-header: '*Part 3*: Appendix - Overview of Relevant **Vehicle Tracking Datasets**'
-_footer: '**[1]** - *Wen, Longyin, et al.* "[UA-DETRAC: A new benchmark and protocol for multi-object detection and tracking.](https://www.sciencedirect.com/science/article/pii/S1077314220300035?casa_token=77iDof3yBUoAAAAA:y4W5dlEYjkX_so6sMFOH2eF-eZeq5ZxK2vUEqbvstj_4R3GXXYr4UGh7bOSQWzeS4_C5yGaxTg)" Computer Vision and Image Understanding 193 (2020): 102907.'
+header: '*Part 4*: Appendix - Overview of Relevant **Vehicle Tracking Datasets**'
+_footer: '**[1]** - *Wen, Longyin, et al.* "[UA-DETRAC: A new benchmark and protocol for multi-object detection and tracking.](https://www.sciencedirect.com/science/article/pii/S1077314220300035?casa_token=77iDof3yBUoAAAAA:y4W5dlEYjkX_so6sMFOH2eF-eZeq5ZxK2vUEqbvstj_4R3GXXYr4UGh7bOSQWzeS4_C5yGaxTg)" Computer Vision and Image Understanding (2020)'
 -->
 # UA-DETRAC vehicle tracking dataset
 
@@ -547,7 +607,7 @@ _footer: '**[1]** - *Wen, Longyin, et al.* "[UA-DETRAC: A new benchmark and prot
 
 ---
 <!--
-_footer: '**[1]** - *Liu, Xinchen, et al.* "[Provid: Progressive and multimodal vehicle reidentification for large-scale urban surveillance.](https://ieeexplore.ieee.org/abstract/document/8036238?casa_token=iIk6fqQhbykAAAAA:Ypehhy5mumMJrOcVcDur_MncD7xAFdLThK1Eak7DzSvzxERzye0S-u2KA20WtIBUOE4W1xS42EIr)" IEEE Transactions on Multimedia 20.3 (2017): 645-658.'
+_footer: '**[1]** - *Liu, Xinchen, et al.* "[Provid: Progressive and multimodal vehicle reidentification for large-scale urban surveillance.](https://ieeexplore.ieee.org/abstract/document/8036238?casa_token=iIk6fqQhbykAAAAA:Ypehhy5mumMJrOcVcDur_MncD7xAFdLThK1Eak7DzSvzxERzye0S-u2KA20WtIBUOE4W1xS42EIr)" IEEE Transactions on Multimedia (2017)'
 -->
 # VeRi-776 vehicle re-identification dataset
 
@@ -570,27 +630,41 @@ _footer: ''
 _paginate: false
 _class: invert
 -->
-# *Part 4*: **Appendix** - **Supplementary** Information
+# *Part 5*: **Appendix** - **Supplementary** Information
+
+## ... **important information** too **elaborate** to fit elsewhere.
 
 ---
 <!--
-header: '*Part 4*: Appendix - **Supplementary** Information'
-_footer: '**[1]** - *Schroff, Florian, Dmitry Kalenichenko, and James Philbin.* "[Facenet: A unified embedding for face recognition and clustering.](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)" Proceedings of the IEEE conference on computer vision and pattern recognition. 2015.'
+header: '*Part 5*: Appendix - **Supplementary** Information'
+_footer: '**[1]** - *Schroff, Florian, Dmitry Kalenichenko, and James Philbin.* "[Facenet: A unified embedding for face recognition and clustering.](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)" IEEE CVPR 2015.'
 -->
-
 # "Batch-all" online triplet mining strategy
 
-[[1](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)].
+* Select **all valid triplets**, but count the ones with **non-zero loss** (**semi-hard**) [[1](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)].
+* Let $\tilde{x}^i_a = f_{\theta} \left( x^i_a \right)$, $\tilde{x}^i_p = f_{\theta} \left( x^i_p \right)$, and $\tilde{x}^j_n = f_{\theta} \left( x^j_n \right)$.
 
+$$\mathcal{L}_{batchall} =
+\sum_{i = 1}^{P}
+\sum_{a = 1}^{K}
+\sum_{p = 1, p \neq a}^K
+\sum_{j = 1, j \neq i}^P
+\sum_{n = 1}^K
+  \left[
+    \alpha +
+    D \left( \tilde{x}^i_a, \tilde{x}^i_p \right) -
+    D \left( \tilde{x}^i_a, \tilde{x}^j_n \right)
+  \right]_+$$
 
 ---
 <!--
-_footer: '**[1]** - *Schroff, Florian, Dmitry Kalenichenko, and James Philbin.* "[Facenet: A unified embedding for face recognition and clustering.](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)" Proceedings of the IEEE conference on computer vision and pattern recognition. 2015.'
+_footer: '**[1]** - *Schroff, Florian, Dmitry Kalenichenko, and James Philbin.* "[Facenet: A unified embedding for face recognition and clustering.](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)" IEEE - CVPR 2015.'
 -->
 
 # "Batch-hard" online triplet mining strategy
 
-For each **anchor**, it selects the **hardest positive** and the **hardest negative** sample [[1](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)].
+* For each **anchor**, select the **hardest positive** and the **hardest negative** sample [[1](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html)].
+* Let $\tilde{x}^i_a = f_{\theta} \left( x^i_a \right)$, $\tilde{x}^i_p = f_{\theta} \left( x^i_p \right)$, and $\tilde{x}^j_n = f_{\theta} \left( x^j_n \right)$.
 
 $$\mathcal{L}_{batchhard} =
 \sum_{i = 1}^{P}
@@ -607,9 +681,7 @@ $$\mathcal{L}_{batchhard} =
     D \left( \tilde{x}^i_a, \tilde{x}^j_n \right)
   \right\}
 
-\right]_+
-$$
-
+\right]_+$$
 
 ---
 # Feature embeddings head - architecture
@@ -632,7 +704,6 @@ _footer: '**[1]** - *Dai, Jifeng, et al.* "[Deformable convolutional networks.](
 **[2]** - *Zhu, Xizhou, et al.* "[Deformable convnets v2: More deformable, better results.](https://arxiv.org/abs/1811.11168)" Proceedings of the IEEE/CVF conference on CVPR. 2019.
 '
 -->
-
 # Deformable convolution operation
 
 A **standard** $3 \times 3$ **convolution** with dilation $1$ employs **offets** given by
