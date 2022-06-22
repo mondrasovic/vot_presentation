@@ -49,7 +49,7 @@ Siamese time delay neural network.](https://proceedings.neurips.cc/paper/1993/ha
 # Similarity learning
 
 * **Similarity learning** started as **signature verification** [[1](https://proceedings.neurips.cc/paper/1993/hash/288cc0ff022877bd3df94bc9360b9c5d-Abstract.html)].
-* The **goal** is to **train** the model to discern between **similar** and **dissimilar** object.
+* The **goal** is to **train** the model to discern between **similar** and **dissimilar** objects.
 * The notion of **similarity** is **task-specific** as well as the way to **measure** it.
 
 ![](./images/similarity_learning.jpg)
@@ -82,7 +82,7 @@ efficient baseline using triplet embedding.](https://arxiv.org/abs/1901.01015)" 
 # Siamese networks and similarity learning
 
 * A common use-case is to **estimate** a **degree** of **similarity** between **two images**.
-* Domain of object **Re-identification** (**ReID**).
+* Domain of object **re-identification** (**ReID**).
   * E.g., vehicle ReID [[1](https://arxiv.org/abs/1901.01015)], person ReID [[2](https://www.sciencedirect.com/science/article/pii/S1047320321002765)].
 * Domain of **Siamese tracking** [[3](https://arxiv.org/abs/1606.09549)].
 
@@ -134,6 +134,7 @@ $$y = \begin{cases}
 
 $$\mathcal{L}_{contr} =
 \frac{1}{2}
+  y
   D^2 \left( \tilde{x}_0, \tilde{x}_1 \right) +
 \frac{1}{2}
   \left( 1 - y \right)
@@ -282,9 +283,25 @@ Three basic phases of **Visual Object Tracking** (**VOT**) [[1](https://arxiv.or
 ![bg fit](./images/object_occlusion_02.jpg)
 
 ---
+<!--
+_footer: '**[1]** - *You, Shaoze, et al.* "[A review of visual trackers and analysis of its application to mobile robot.](https://arxiv.org/abs/1910.09761)" arXiv preprint arXiv:1910.09761 (2019).'
+-->
+# Tracking-by-detection - general pipeline
+
+A well-known approach based on **separate detection** and **data association** stages [[1](https://arxiv.org/abs/1910.09761)].
+
+![](./images/tracking_by_detection.png)
+
+---
+<!--
+_footer: '**[1]** - *Marvasti-Zadeh, Seyed Mojtaba, et al.* "[Deep learning for visual tracking: A comprehensive survey.](https://ieeexplore.ieee.org/document/9339950)" IEEE Transactions on ITS (2021).'
+-->
 # Siamese single object tracking - general pipeline
 
+A **modern approach** to tracking that exploits **similarity learning** [[1](https://ieeexplore.ieee.org/document/9339950)].
+
 ![](./images/fully_cnn_siam_tracking_architecture.png)
+
 
 ---
 <!--
@@ -292,15 +309,18 @@ _footer: '**[1]** - *Ondrašovič, Milan, and Peter Tarábek.* "[Siamese visual 
 -->
 # Survey on Siamese VOT (*shameless advertisement*)
 
-* An **up-to-date**, **comprehensive**, yet **specialized survey** [[1](https://ieeexplore.ieee.org/document/9503425)] aimed at the **constituents** of **Siamese trackers** and **problems** these **architectures** face.
+* An **up-to-date**, **comprehensive**, yet **specialized survey** [[1](https://ieeexplore.ieee.org/document/9503425)] aimed at the **fundamentals** of **Siamese trackers** and **problems** these **architectures** face.
 
 ![](./images/siamese_tracking_survey.png)
 
 ---
 <!--
-_footer: '**[1]** - *Bertinetto, Luca, et al.* "[Fully-convolutional siamese networks for object tracking.](https://arxiv.org/abs/1606.09549)" European conference on computer vision. Springer, Cham, 2016.'
+_footer: '
+$\star$ - See **appendix** for additional **mathematical details**.
+
+**[1]** - *Bertinetto, Luca, et al.* "[Fully-convolutional siamese networks for object tracking.](https://arxiv.org/abs/1606.09549)" European conference on computer vision. Springer, Cham, 2016.'
 -->
-# Siamese tracking - fundamental components
+# Siamese tracking - fundamental components$^\star$
 
 ## Fully-convolutional architecture
 
@@ -312,6 +332,11 @@ _footer: '**[1]** - *Bertinetto, Luca, et al.* "[Fully-convolutional siamese net
 * Let $\varphi \left( \cdot \right)$ be the **embedding function**. The produced **feature maps** can be combined into a **2D response map** using a **cross-correlation** operation ($\star$) as [[1](https://arxiv.org/abs/1606.09549)]
 $$f \left( z, x \right) =
 \varphi \left( z \right) \star \varphi \left( z \right).$$
+
+---
+# Siamese tracking - exemplar/search region training
+
+![height:540](./images/exemplar_search_region_training.png)
 
 ---
 <!--
@@ -377,16 +402,20 @@ _class: invert
 # *Part 3*: **Experiments** with the chosen **Siamese tracker**
 
 ## ... with the target of **traffic analysis**, concretely **vehicle tracking**.
+
 ---
 <!--
 header: '*Part 3:* Key takeaways from **experiments** with **Siamese** multi-object **tracking**'
-_footer: '**[1]** - *Luo, Hao, et al.* "[Bag of tricks and a strong baseline for deep person re-identification.](https://arxiv.org/abs/1903.07071)" Proceedings of the IEEE/CVF conference on CVPR workshops. 2019.'
+_footer: '
+$\star$ - Model trained on **VeRi-776** vehicle re-identification (ReID) **dataset** - see **appendix** for further **details**.
+
+**[1]** - *Luo, Hao, et al.* "[Bag of tricks and a strong baseline for deep person re-identification.](https://arxiv.org/abs/1903.07071)" Proceedings of the IEEE/CVF conference on CVPR 2019.'
 -->
 # Utilization of object re-identification
 
-An **external**, independently trained **ReID** model [[1](https://arxiv.org/abs/1903.07071)] was utilized as part of the **inference phase** (**not part** of the **end-to-end** pipeline).
+An **external**, independently trained$^\star$ **ReID** model [[1](https://arxiv.org/abs/1903.07071)] was utilized as part of the **inference phase** (**not part** of the **end-to-end** pipeline) to improve **occlusion handling**.
 
-![height:400](./images/siammot_architecture_with_ReID.jpg)
+![height:390](./images/siammot_architecture_with_ReID.jpg)
 
 ---
 # Utilization of object re-identification - concept
@@ -531,14 +560,24 @@ $\star$ - See **appendix** for more **mathematical details**.
 ![](./images/siammot_attention_training.jpg)
 
 ---
-# SiamMOT and attention - results - MOTA vs. MOTP
+<!--
+_footer: '
+$\star$ - **Evaluation performed** on the **test set** of **UA-DETRAC** vehicle tracking **dataset** - see **appendix** for further **details**.
 
-![height:525](./images/tracker_cmp_MOTA_MOTP.png)
+**[1]** - *Bernardin, Keni, and Rainer Stiefelhagen.* "[Evaluating multiple object tracking performance: the clear mot metrics.](https://jivp-eurasipjournals.springeropen.com/articles/10.1155/2008/246309)" EURASIP Journal (2008).'
+-->
+# SiamMOT & deformable Siamese attention - results
 
----
-# SiamMOT and attention - results - precision vs. recall
+* Model **evaluation** results$^\star$ using established **CLEAR MOT** metrics [[1](https://jivp-eurasipjournals.springeropen.com/articles/10.1155/2008/246309)].
+  * ***MOTA*** - tracking **accuracy**, ***MOTP*** - tracking **precision**.
+  * ***precision*** - detection **precision**, ***recall*** - detection **recall**.
 
-![height:525](./images/tracker_cmp_rec_prec.png)
+| model    | batch size | grad. accum. | MOTA              | MOTP              | precision         | recall            |
+| -------- | ---------- | ------------ | ----------------- | ----------------- | ----------------- | ----------------- |
+| DSA-ex   | $24$       | $\checkmark$ | $\mathbf{0.7625}$ | $\mathbf{0.1548}$ | $\mathbf{0.9260}$ | $\mathbf{0.8315}$ |
+| original | $24$       | $\checkmark$ | $0.7429$          | $0.1533$          | $0.9137$          | $0.8230$          |
+| DSA-ex   | $4$        |              | $\mathbf{0.7274}$ | $\mathbf{0.1639}$ | $\mathbf{0.8843}$ | $0.8401$          |
+| original | $24$       |              | $0.7263$          | $0.1556$          | $0.8825$          | $\mathbf{0.8415}$ |
 
 ---
 <!--
@@ -569,6 +608,8 @@ _footer: '**[1]** - *Zhang, Yifu, et al.* "[Fairmot: On the fairness of detectio
 
 * **Siamese tracking** has reaped an upsurge in **research interest** recently (since $2016$).
   * The **speed-to-accuracy** ratio is arguably among **the best**.
+* It is a **modern** and **unique** approach to **tracking** that exploits **similarity learning**.
+  * A **competitive** tracking paradigm is ***tracking-by-detection***, for example.
 * When combining **embeddings** with **tracking**, the architecture must be **appropriate**.
   * **RPN**-based (**anchor**-based, in general) trackers are **not suitable** for **simultaneous** vector **embedding** (latent space) formation.
   * **Point**-based approaches such as **FairMOT** [[1](https://arxiv.org/abs/2004.01888)] are a **promising direction**.
@@ -682,6 +723,25 @@ $$\mathcal{L}_{batchhard} =
   \right\}
 
 \right]_+$$
+
+---
+<!--
+_footer: '**[1]** - *Bertinetto, Luca, et al.* "[Fully-convolutional siamese networks for object tracking.](https://arxiv.org/abs/1606.09549)" European conference on computer vision. Springer, Cham, 2016.'
+-->
+# Training single object Siamese trackers
+
+* It is based on a **discriminative approach** while training the network on **positive** and **negative** pairs by adopting the **logistic** loss as [[1](https://arxiv.org/abs/1606.09549)]
+
+$$\mathcal{l} \left( y, v \right) = \log \left( 1 + e^{-yv} \right).$$
+
+* The **confidence score** of a **single exemplar-candidate** pair is given by $v \in \mathbb{R}.$
+* The **ground-truth label** is denoted as $y \in \left\{ -1, 1 \right\}$.
+* By exploiting a **fully-convolutional** architecture, a corresponding **2D map** of scores $v: \mathcal{D} \to \mathbb{R}$ is produced. The **loss function** is defined on the **response map** as
+$$\mathcal{L} \left( y, v \right) =
+\frac{1}{\left\vert \mathcal{D} \right\vert}
+\sum_{u \in \mathcal{D}}
+\mathcal{l} \left( y \left[ u \right], v \left[ u \right] \right).$$
+* A **ground-truth label** $y \left[ u \right] \in \left\{ -1, 1 \right\}$ is required for **each position** $u \in \mathcal{D}$.
 
 ---
 # Feature embeddings head - architecture
