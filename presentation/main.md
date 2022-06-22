@@ -331,7 +331,7 @@ $\star$ - See **appendix** for additional **mathematical details**.
 * Let $z$ and $x$ denote the **exemplar** and **search region**, respectively. 
 * Let $\varphi \left( \cdot \right)$ be the **embedding function**. The produced **feature maps** can be combined into a **2D response map** using a **cross-correlation** operation ($\star$) as [[1](https://arxiv.org/abs/1606.09549)]
 $$f \left( z, x \right) =
-\varphi \left( z \right) \star \varphi \left( z \right).$$
+\varphi \left( z \right) \star \varphi \left( x \right).$$
 
 ---
 # Siamese tracking - exemplar/search region training
@@ -781,3 +781,24 @@ $$\mathbf{y} \left( \mathbf{p}_0 \right) =
 \mathbf{w} \left( \mathbf{p}_n \right)
 \cdot
 \mathbf{x} \left( \mathbf{p}_0 + \mathbf{p}_n + \Delta \mathbf{p}_n \right).$$
+
+---
+<!--
+_header: ''
+_footer: ''
+_paginate: false
+_class: invert
+-->
+# *Part 6*: **Appendix** - Personal **Publications List**
+
+## ... **other published work** during my Ph.D. that **I authored**.
+
+---
+<!--
+header: '*Part 6*: Appendix - **Publications List**'
+_footer: ''
+-->
+* *Ondrašovič, Milan, and Peter Tarábek.* "[Siamese visual object tracking: A survey.](https://ieeexplore.ieee.org/document/9503425)" IEEE Access 9 (2021): 110149-110172.
+* *Ondrašovič, Milan, and Peter Tarábek.* "[Homography Ranking Based on Multiple Groups of Point Correspondences.](https://www.mdpi.com/1424-8220/21/17/5752)" Sensors 21.17 (2021): 5752.
+* *Ondrašovič, Milan, Peter Tarábek, and Ondrej Šuch.* "[Object Position Estimation from a Single Moving Camera.](https://ieeexplore.ieee.org/document/9497523)" 2021 International Conference on Information and Digital Technologies (IDT). IEEE, 2021.
+* *Ondrašovič, Milan, and Peter Tarábek.* "Foundations for homography estimation in presence of redundant point correspondencies" Mathematics in science and technologies - proceedings of the MIST conference.
